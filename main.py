@@ -44,7 +44,7 @@ class Database:
     def set_show_register(self, show=True):
         self.show_register = show
 
-    def register(self, register:Register):
+    def register(self, register):
         # check if this register is already saved
         if not self.is_registered(register):
             # if nothing was found, register it
@@ -55,7 +55,7 @@ class Database:
 
         return False
 
-    def is_registered(self, register:Register):
+    def is_registered(self, register):
         for r in self.registers:
             if r['url'] == register.url:
                 #logger.debug('Already registered: {}'.format(r['url']))
@@ -63,7 +63,7 @@ class Database:
                 return True
         return False
 
-    def register_all(self, registers:list[Register]):
+    def register_all(self, registers):
         registered = []
         for r in registers:
             is_new = self.register(r)
@@ -95,7 +95,6 @@ class Database:
             }
             with open(self.db_path, 'w') as file:
                 json.dump(data_obj, file, indent=self.indent_output, default=str)
-
 
 
 def print_debug(results):
